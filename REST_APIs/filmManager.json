@@ -1,0 +1,64 @@
+{
+    "$schema": "./schema.json",
+    "$id": "FilmManager JSON",
+    "title": "Film Manager JSON",
+        "users": [
+            {
+                "id": "user01",
+                "name": "Giuseppe Rossi",
+                "email": "giusepperossi@gmail.com",
+                "password": "GiuseppeRossi",
+                "films": [
+                    "film01",
+                    "film03"
+                ]
+            },
+            {
+                "id": "user02",
+                "name": "Daniele Caputo",
+                "email": "danielecaputo@outlook.it",
+                "password": "DanieleCaputo",
+                "films": [
+                    "film01",
+                    "film02",
+                    "film03"
+                ]
+            }
+        ],
+        "films": [
+            {
+                "id": "film01",
+                "title": "Inception",
+                "owner": "user02",
+                "private": true,
+                "watchDate": "2022-08-30",
+                "rating": 5,
+                "favorite": true
+            },
+            {
+                "id": "film02",
+                "title": "Interstellar",
+                "owner": "user02",
+                "private": true,
+                "watchDate": "2022-08-30",
+                "rating": 5,
+                "favorite": true
+            },
+            {
+                "id": "film03",
+                "title": "Example Film",
+                "owner": "user01",
+                "private": false
+            }
+        ],
+        "reviews": [
+            {
+                "filmId": "film02",
+                "reviewerId": "user01",
+                "completed": true,
+                "reviewDate": "2022-09-22",
+                "rating": 8,
+                "review": "Simply the best!"
+            }
+        ]
+}

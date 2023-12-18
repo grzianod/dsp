@@ -1,0 +1,85 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "FilmManager JSON Schema",
+	"title": "Film Manager JSON Schema",
+    "definitions": {
+        "user": {
+            "type": "object",
+            "properties": {
+                "id": { "type": "string" },
+                "name": { "type": "string"},
+                "email": { "type": "string", "format": "email" },
+                "password": { "type": "string", "minLength": 6, "maxLength": 20 },
+                "films": { 
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/film/properties/id" }
+                }
+            },
+            "additionalProperties": false,
+            "required": [ "id", "email" ]
+        },
+        "film": {
+            "type": "object",
+            "properties": {
+                "id": { "type": "string" },
+                "title": { "type": "string" },
+                "owner": { "type": "string", "$ref": "#/definitions/user/properties/id" },
+                "private": { "type": "boolean" },
+                "watchDate": { "type": "string", "format": "date" },
+                "rating": { "type": "integer", "minimum": 0, "maximum": 10 },
+                "favorite": { "type": "boolean", "default": false }
+        }, 
+        "additionalProperties": false,
+        "required": [ "id", "title", "owner", "private" ],
+        "dependencies": {
+            "watchDate":  {
+                "properties": {
+                    "private": { "const": true }
+            } 
+            },
+            "rating": {
+                "properties": {
+                    "private": { "const": true }
+                }
+            },
+            "favorite": {
+                "properties": {
+                    "private": { "const": true }
+                }
+            }
+            }
+        },
+        "review": {
+            "type": "object",
+            "properties": {
+                "filmId": { "type": "string", "$ref": "#/definitions/film/properties/id" },
+                "reviewerId": { "type": "string", "$ref": "#/definitions/user/properties/id" },
+                "completed": { "type": "boolean" },
+                "reviewDate": { "type": "string", "format": "date" },
+                "rating": { "type": "integer", "minimum": 0, "maximum": 10 },
+                "review": { "type": "string", "maxLength": 1000}
+            },
+            "additionalProperties": false,
+            "required": [ "filmId", "reviewerId", "completed" ],
+            "if": { "properties": { "completed": { "const": true } } },
+            "then": { "required": [ "reviewDate", "rating", "review" ] } 
+        }
+
+    },
+        "type": "object",
+        "properties": {
+            "users": { 
+                "type": "array", 
+                "items": { "$ref": "#/definitions/user" }
+            },
+            "films": {
+                "type": "array",
+                "items": { "$ref": "#/definitions/film" }
+            },
+            "reviews": {
+                "type": "array",
+                "items": { "$ref": "#/definitions/review" }
+            }
+        }
+
+}

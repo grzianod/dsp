@@ -1,0 +1,1013 @@
+{
+  "info": {
+    "title": "Film Manager APIs",
+    "version": "1.0.0",
+    "description": "This is a sample Film Manager Server",
+    "contact": {
+      "name": "s317669",
+      "url": "https://github.com/grzianod?tab=repositories",
+      "email": "graziano.dinocca@studenti.polito.it"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "description": "Film Manager Server",
+      "url": "http://macbook.local:3030"
+    }
+  ],
+  "openapi": "3.0.1",
+  "components": {
+    "schemas": {
+      "user": {
+        "type": "object",
+        "properties": {
+          "self": {
+            "type": "string",
+            "format": "uri"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6,
+            "maxLength": 20
+          },
+          "films": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "email"
+        ]
+      },
+      "film": {
+        "type": "object",
+        "properties": {
+          "self": {
+            "type": "string",
+            "format": "uri"
+          },
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string",
+            "format": "uri"
+          },
+          "private": {
+            "type": "boolean"
+          },
+          "watchDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "rating": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10
+          },
+          "favorite": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "owner",
+          "private"
+        ]
+      },
+      "review": {
+        "type": "object",
+        "properties": {
+          "self": {
+            "type": "string",
+            "format": "uri"
+          },
+          "filmId": {
+            "type": "string",
+            "format": "uri"
+          },
+          "reviewerId": {
+            "type": "string",
+            "format": "uri"
+          },
+          "completed": {
+            "type": "boolean"
+          },
+          "reviewDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "rating": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10
+          },
+          "review": {
+            "type": "string",
+            "maxLength": 1000
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "completed"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "connect.sid"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "all",
+      "description": "Everything about APIs"
+    },
+    {
+      "name": "films",
+      "description": "Everything about Films"
+    },
+    {
+      "name": "reviews",
+      "description": "Everything about Reviews"
+    },
+    {
+      "name": "users",
+      "description": "Everything about Users"
+    }
+  ],
+  "paths": {
+    "/api": {
+      "get": {
+      "tags": [
+        "all"
+      ],
+      "summary": "Retrieve all the APIs",
+        "description": "Retrieve all the APIs",
+        "operationId": "getAPIs",
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+    }
+      }
+    },
+    "/api/all/films": {
+      "get": {
+        "tags": [
+          "films"
+        ],
+        "summary": "Retrieve all the films created by an user",
+        "description": "Retrieve all the films in the library created by an user",
+        "operationId": "getCreatedFilms",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number to be retrieved",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/film"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "films"
+        ],
+        "summary": "Create a new film",
+        "description": "Create a new film in the library",
+        "operationId": "postFilm",
+        "requestBody": {
+          "required": true,
+          "description": "The film object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/film",
+                "dependencies": {
+                  "watchDate": {
+                    "properties": {
+                      "private": {
+                        "const": true
+                      }
+                    }
+                  },
+                  "rating": {
+                    "properties": {
+                      "private": {
+                        "const": true
+                      }
+                    }
+                  },
+                  "favorite": {
+                    "properties": {
+                      "private": {
+                        "const": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The film created with its unique identifier",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/film"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/all/films/{filmID}": {
+      "get": {
+        "tags": [
+          "films"
+        ],
+        "summary": "Retrieve a single existing film",
+        "description": "Retrieve a single existing film in the library",
+        "operationId": "getFilm",
+        "parameters": [
+          {
+            "name": "filmID",
+            "in": "path",
+            "description": "The filmID to be used to retrieve the film",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The film created with its unique identifier",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/film"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Film Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "films"
+        ],
+        "summary": "Update an existing film",
+        "description": "Create an existing film in the library",
+        "operationId": "putFilm",
+        "parameters": [
+          {
+            "name": "filmID",
+            "in": "path",
+            "description": "The filmID to be used to retrieve the film",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "The film object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/film",
+                "dependencies": {
+                  "watchDate": {
+                    "properties": {
+                      "private": {
+                        "const": true
+                      }
+                    }
+                  },
+                  "rating": {
+                    "properties": {
+                      "private": {
+                        "const": true
+                      }
+                    }
+                  },
+                  "favorite": {
+                    "properties": {
+                      "private": {
+                        "const": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated film",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/film"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "The created film",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/film"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient Permissions"
+          },
+          "404": {
+            "description": "Film Not Found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "films"
+        ],
+        "summary": "Delete an existing film",
+        "description": "Delete an existing film in the library",
+        "operationId": "deleteFilm",
+        "parameters": [
+          {
+            "name": "filmID",
+            "in": "path",
+            "description": "The filmID of the film to be deleted",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "403": {
+            "description": "Insufficient Permissions"
+          },
+          "404": {
+            "description": "Film Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/public/films": {
+      "get": {
+        "tags": [
+          "films"
+        ],
+        "summary": "Retrieve all public films",
+        "description": "Retrieve all public films",
+        "operationId": "getPublicFilms",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number to be retrieved",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/film"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/public/films/{filmID}": {
+      "get": {
+        "tags": [
+          "films"
+        ],
+        "summary": "Retrieve a public film by its filmId",
+        "description": "Retrieve a public film by its filmId",
+        "operationId": "getPublicFilm",
+        "parameters": [
+          {
+            "name": "filmID",
+            "in": "path",
+            "description": "The filmID to be used to retrieve the film",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/film"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Film Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/all/reviews": {
+      "get": {
+        "tags": [
+          "reviews"
+        ],
+        "summary": "Retrieve all user's films for which a review has been requested",
+        "description": "Retrieve all user's films for which a review has been requested",
+        "operationId": "getReviewFilms",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number to be retrieved",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/film"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/public/films/{filmID}/reviews": {
+      "get": {
+        "tags": [
+          "reviews"
+        ],
+        "summary": "Retrieve all reviews of a public film by its filmId",
+        "description": "Retrieve all reviews of a public film by its filmId",
+        "operationId": "getReviews",
+        "parameters": [
+          {
+            "name": "filmID",
+            "in": "path",
+            "description": "The filmID to which the review refers to",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/review"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Film Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/public/films/{filmID}/reviews/{reviewerID}": {
+      "get": {
+        "tags": [
+          "reviews"
+        ],
+        "summary": "Retrieve the review of a public film by its filmId and reviewerId",
+        "description": "Retrieve the review of a public film by its filmId",
+        "operationId": "getReview",
+        "parameters": [
+          {
+            "name": "filmID",
+            "in": "path",
+            "description": "The filmID to which the review refers to",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reviewerID",
+            "in": "path",
+            "description": "The reviewerID to which the review request is requested",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/review"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Film Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": []
+      },
+      "put": {
+        "tags": [
+          "reviews"
+        ],
+        "summary": "Update a review for a film",
+        "description": "Update (or create) a review for a film",
+        "operationId": "putReview",
+        "parameters": [
+          {
+            "name": "filmID",
+            "in": "path",
+            "description": "The filmID to be used to add a review request for the film",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reviewerID",
+            "in": "path",
+            "description": "The reviewerID to which the review request is requested",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "The review object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/review",
+                "if": {
+                  "properties": {
+                    "completed": {
+                      "const": true
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "reviewDate",
+                    "rating",
+                    "review"
+                  ]
+                },
+                "dependencies": {
+                  "reviewDate": {
+                    "properties": {
+                      "completed": {
+                        "const": true
+                      }
+                    }
+                  },
+                  "rating": {
+                    "properties": {
+                      "completed": {
+                        "const": true
+                      }
+                    }
+                  },
+                  "review": {
+                    "properties": {
+                      "completed": {
+                        "const": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated review",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/review"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "The created review",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/review"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient Permissions"
+          },
+          "404": {
+            "description": "Film Not Found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "reviews"
+        ],
+        "summary": "Delete an existing review",
+        "description": "Delete a review for a film",
+        "operationId": "deleteReview",
+        "parameters": [
+          {
+            "name": "filmID",
+            "in": "path",
+            "description": "The filmID to be used to add a review request for the film",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reviewerID",
+            "in": "path",
+            "description": "The reviewerID to which the review is requested",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "403": {
+            "description": "Insufficient Permissions"
+          },
+          "404": {
+            "description": "Review Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "requestBody": {
+          "required": true,
+          "description": "The credential object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "headers": {
+              "X-Rate-Limit": {
+                "description": "calls per hour allowed by the user",
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "X-Expires-After": {
+                "description": "date in UTC when token expires",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/users/{userID}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get the current login status",
+        "description": "Get the current login status",
+        "operationId": "currentSession",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "The userID to which the session refers to",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "The userID to which the session refers to",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    }
+  }
+}

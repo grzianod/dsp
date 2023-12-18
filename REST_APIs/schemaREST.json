@@ -1,0 +1,105 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "FilmManager JSON Schema",
+    "title": "Film Manager JSON Schema",
+    "definitions": {
+        "user": {
+            "type": "object",
+            "properties": {
+                "self": { "type":  "string", "format": "uri"},
+                "id": { "type": "string" },
+                "name": { "type": "string"},
+                "email": { "type": "string", "format": "email" },
+                "password": { "type": "string", "minLength": 6, "maxLength": 20 },
+                "films": {
+                    "type": "array",
+                    "items": { "type":  "string", "format": "uri"}
+                }
+            },
+            "additionalProperties": false,
+            "required": [ "id", "email" ]
+        },
+        "film": {
+            "type": "object",
+            "properties": {
+                "self": { "type":  "string", "format": "uri"},
+                "id": { "type": "string" },
+                "title": { "type": "string" },
+                "owner": { "type":  "string", "format": "uri"},
+                "private": { "type": "boolean" },
+                "watchDate": { "type": "string", "format": "date" },
+                "rating": { "type": "integer", "minimum": 0, "maximum": 10 },
+                "favorite": { "type": "boolean", "default": false }
+            },
+            "additionalProperties": false,
+            "required": [ "id", "title", "owner", "private" ],
+            "dependencies": {
+                "watchDate":  {
+                    "properties": {
+                        "private": { "const": true }
+                    }
+                },
+                "rating": {
+                    "properties": {
+                        "private": { "const": true }
+                    }
+                },
+                "favorite": {
+                    "properties": {
+                        "private": { "const": true }
+                    }
+                }
+            }
+        },
+        "review": {
+            "type": "object",
+            "properties": {
+                "self": { "type":  "string", "format": "uri"},
+                "filmId": { "type":  "string", "format": "uri"},
+                "reviewerId": { "type":  "string", "format": "uri"},
+                "completed": { "type": "boolean" },
+                "reviewDate": { "type": "string", "format": "date" },
+                "rating": { "type": "integer", "minimum": 0, "maximum": 10 },
+                "review": { "type": "string", "maxLength": 1000}
+            },
+            "additionalProperties": false,
+            "required": [ "filmId", "reviewerId", "completed" ],
+            "if": { "properties": { "completed": { "const": true } } },
+            "then": { "required": [ "reviewDate", "rating", "review" ] },
+            "dependencies": {
+                "reviewDate": {
+                    "properties": {
+                        "completed": { "const": true }
+                    }
+                },
+                "rating": {
+                    "properties": {
+                        "completed": { "const": true }
+                    }
+                },
+                "review": {
+                    "properties": {
+                        "completed": { "const": true }
+                    }
+                }
+            }
+        }
+
+    },
+    "type": "object",
+    "properties": {
+        "users": {
+            "type": "array",
+            "items": { "type":  "string", "format": "uri"}
+        },
+        "films": {
+            "type": "array",
+            "items": { "type":  "string", "format": "uri"}
+        },
+        "reviews": {
+            "type": "array",
+            "items": { "type":  "string", "format": "uri"}
+        }
+    }
+
+}
