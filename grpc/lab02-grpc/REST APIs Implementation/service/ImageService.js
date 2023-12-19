@@ -176,7 +176,7 @@ exports.deleteSingleImage = function(filmId, imageId, owner) {
 
 function convertImage(originFile, pathFile, originType, imageType) {
     return new Promise((resolve, reject) => {
-        // Open the gRPC call with the gRPC server
+        // Open the grpc call with the grpc server
        let call = client.fileConvert();
 
        //set the callback to receive back the file
@@ -207,7 +207,7 @@ function convertImage(originFile, pathFile, originType, imageType) {
             wstream.end();
         })
 
-        // Send the conversion types for the file (when the gRPC client is integrated with the server of Lab01, the file_type_origin and file_type_target will be chosen by the user)
+        // Send the conversion types for the file (when the grpc client is integrated with the server of Lab01, the file_type_origin and file_type_target will be chosen by the user)
         call.write({ "meta": {"file_type_origin": originType, "file_type_target": imageType}});
 
         // Send the file
@@ -218,7 +218,7 @@ function convertImage(originFile, pathFile, originType, imageType) {
             call.write({"file": chunk });
         });
 
-        // When all the chunks of the image have been sent, the clients stops to use the gRPC call from the sender side
+        // When all the chunks of the image have been sent, the clients stops to use the grpc call from the sender side
         imageDataStream.on('end', () => {
             call.end();
         });
