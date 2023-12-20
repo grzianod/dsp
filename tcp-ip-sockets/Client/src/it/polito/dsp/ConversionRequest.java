@@ -61,34 +61,33 @@ public class ConversionRequest {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		char isSuccess = (char) inputStream.readByte();
 		switch(isSuccess) {
-		case '0': System.out.println("Conversion successful.");	
-					int newFileSize = (int) inputStream.readInt();
-					for(; newFileSize > CHUNK_SIZE; newFileSize -= CHUNK_SIZE) {
-						System.out.println(inputStream.read(fileBytes, 0, CHUNK_SIZE));
-						baos.write(fileBytes, 0, CHUNK_SIZE);
-						fileBytes = new byte [CHUNK_SIZE];
-					}
-					
-					int readBytes = 0;
-					while((readBytes = inputStream.read(fileBytes, 0, newFileSize)) > 0) {
-						System.out.println(readBytes);
-						baos.write(fileBytes, 0, readBytes);
-					}
-					
-					try {
-						OutputStream fos = new FileOutputStream("./image/output."+output.toLowerCase());
-						baos.writeTo(fos);
-						outputStream.close();
-						fos.flush();
-						fos.close();
-						System.out.println("The converted file has been received and saved.");
-					}
-					catch(Exception e) {
-						System.err.println("Error while saving file.");
-						e.printStackTrace();
-						System.exit(7);
-					}
-					break;
+		case '0': 
+			fileSize = inputStream.readInt();
+			 int bytesToRead = fileSize;
+			 
+			 
+			//read file chunks, until less than CHUNK_LENGTH bytes remain
+			 while(fileSize > CHUNK_SIZE) {
+				// System.out.println(fileSizeToRead);
+				int readBytes = inputStream.read(fileBytes, 0, CHUNK_SIZE);
+				baos.write(fileBytes, 0, readBytes);
+				bytesToRead -= readBytes;
+				fileSize = bytesToRead;
+				fileBytes = new byte[CHUNK_SIZE];
+			 }
+			//read last chunk
+			while(bytesToRead > 0) {
+				int readBytes = inputStream.read(fileBytes, 0, bytesToRead);
+				baos.write(fileBytes, 0, readBytes);
+				bytesToRead -= readBytes;
+				fileBytes = new byte[CHUNK_SIZE];
+			}			 
+			try(OutputStream outputStream = new FileOutputStream("image/output."+output.toLowerCase())) {
+				baos.writeTo(outputStream);
+				outputStream.close();
+			}
+			System.out.println("The converted file has been received.");
+       	break;
 		case '1': System.out.println("Wrong request");
 					break;
 		case '2': System.out.println("Internal Server Error");
