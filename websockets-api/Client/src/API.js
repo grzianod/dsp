@@ -2,7 +2,7 @@ import { Film } from './models/Film';
 import { Review } from './models/Review';
 import { User } from './models/User';
 
-const SERVER = 'http://localhost:3000';
+const SERVER = 'http://localhost:3001';
 
 /**
  * A utility function for parsing the HTTP response.

@@ -7,6 +7,7 @@ var fs = require('fs');
 var oas3Tools = require('oas3-tools');
 var { Validator, ValidationError } = require('express-json-validator-middleware');
 var serverPort = 3001;
+let webSocketPort = 3002;
 
 /** Authentication-related imports **/
 var passport = require('passport');
@@ -16,13 +17,14 @@ var filmManager = require(path.join(__dirname, 'components/FilmManager'));
 var userController = require(path.join(__dirname, 'controllers/UsersController'));
 var filmController = require(path.join(__dirname, 'controllers/FilmsController'));
 var reviewController = require(path.join(__dirname, 'controllers/ReviewsController'));
+var statusController = require(path.join(__dirname, 'controllers/StatusController'));
 var utils = require(path.join(__dirname, 'utils/writer.js'));
 
 /** Set up and enable Cross-Origin Resource Sharing (CORS) **/
 
 
 var corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: true,
     credentials: true,
   };
   
@@ -80,25 +82,24 @@ app.use(session({
   }));
   app.use(passport.authenticate('session'));
 
-
 //Route methods
 
 app.get('/api', function(req, res, next) {utils.writeJson(res, new filmManager());});
 app.get('/api/films/public', filmController.getPublicFilms);
-app.post('/api/films', isLoggedIn, validate({ body: filmSchema }), filmController.createFilm);
+app.post('/api/films', isLoggedIn, validate({ body: filmSchema }), statusController.activeFilm, filmController.createFilm);
 app.get('/api/films/private/:filmId', isLoggedIn, filmController.getSinglePrivateFilm);
 app.put('/api/films/private/:filmId', isLoggedIn, validate({ body: filmSchema }), filmController.updateSinglePrivateFilm);
 app.delete('/api/films/private/:filmId', isLoggedIn, filmController.deleteSinglePrivateFilm);
-app.get('/api/films/public/invited', isLoggedIn, filmController.getInvitedFilms);
-app.get('/api/films/public/:filmId', filmController.getSinglePublicFilm);
+app.get('/api/films/public/invited', isLoggedIn, statusController.activeFilm, filmController.getInvitedFilms);
+app.get('/api/films/public/:filmId', isLoggedIn, statusController.activeFilm, filmController.getSinglePublicFilm);
 app.put('/api/films/public/:filmId', isLoggedIn, validate({ body: filmSchema }), filmController.updateSinglePublicFilm);
 app.delete('/api/films/public/:filmId', isLoggedIn, filmController.deleteSinglePublicFilm);
-app.get('/api/films/public/:filmId/reviews', reviewController.getFilmReviews);
+app.get('/api/films/public/:filmId/reviews', isLoggedIn, statusController.activeFilm, reviewController.getFilmReviews);
 app.post('/api/films/public/:filmId/reviews', isLoggedIn, reviewController.issueFilmReview);
-app.get('/api/films/public/:filmId/reviews/:reviewerId', reviewController.getSingleReview);
+app.get('/api/films/public/:filmId/reviews/:reviewerId', isLoggedIn, statusController.activeFilm, reviewController.getSingleReview);
 app.put('/api/films/public/:filmId/reviews/:reviewerId', isLoggedIn, reviewController.updateSingleReview);
 app.delete('/api/films/public/:filmId/reviews/:reviewerId', isLoggedIn, reviewController.deleteSingleReview);
-app.get('/api/users', isLoggedIn, userController.getUsers);
+app.get('/api/users', isLoggedIn, statusController.activeFilm, userController.getUsers);
 app.post('/api/users/authenticator', userController.authenticateUser);
 app.get('/api/users/:userId', isLoggedIn, userController.getSingleUser);
 app.get('/api/films/private', isLoggedIn, filmController.getPrivateFilms);
@@ -121,7 +122,8 @@ app.use(function(err, req, res, next) {
 
 // Initialize the Swagger middleware
 
-http.createServer(app).listen(serverPort, function() {
+let server = http.createServer(app).listen(serverPort, function() {
     console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
+    console.log('Your Web Socket server is listening on port %d (http://localhost:%d)', webSocketPort, webSocketPort);
     console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
 });

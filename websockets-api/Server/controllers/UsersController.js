@@ -4,6 +4,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var utils = require('../utils/writer.js');
 var Users = require('../service/UsersService');
+var StatusController = require('../controllers/StatusController');
 
 
 // Set up local strategy to verify, search in the DB a user with a matching password, and retrieve its information by userDao.getUser (i.e., id, username, name).
@@ -19,6 +20,7 @@ passport.use(new LocalStrategy({
                   if (!Users.checkPassword(user, password)) {
                     return done(null, false, { message: 'Unauthorized access.' });
                   } else {
+                      StatusController.updateLoginStatus(user);
                       return done(null, user);
                   }
               }
@@ -56,8 +58,8 @@ module.exports.authenticateUser = function authenticateUser (req, res, next) {
               if (user === undefined) {
                   utils.writeJson(res, {errors: [{ 'param': 'Server', 'msg': 'Unauthorized access.' }],}, 401);
               } else {
-
                 req.logout(() => {
+                    StatusController.updateLogoutStatus(user);
                   res.status(200).json({});
                 });
                 }

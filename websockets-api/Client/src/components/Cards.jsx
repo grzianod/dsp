@@ -8,7 +8,7 @@ const Cards = (props) => {
     return (
       <Card>
       <Card.Content header={"User Name: " +name} />
-      <Card.Content description={"UsedID: " + id}/>
+      <Card.Content description={"UserID: " + id}/>
       <Card.Content extra>
       {selectedInfo.filmId ? "Film Selected: "+selectedInfo.filmId+" "+ selectedInfo.filmTitle : 'Film not selected'}
       </Card.Content>

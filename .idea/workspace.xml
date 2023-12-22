@@ -9,82 +9,25 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d77b753-3edd-4b4f-a842-3946fbc34809" name="Changes" comment="initial commit">
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/public/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/public/logo192.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/public/logo512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/public/manifest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/public/robots.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/API.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/App.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/App.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/App.test.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/Auth.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/Cards.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/FilmReviewLibrary.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/FilmToReviewLibrary.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/Filters.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/IssueReviewLibrary.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/MiniOnlineList.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/Navigation.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/OnlineList.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/PageLayout.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/PrivateFilmForm.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/PrivateFilmLibrary.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/PublicFilmForm.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/PublicFilmLibrary.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/ReviewForm.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/ws_message.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/index.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/logo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/messageCtx.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/models/Film.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/models/Review.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/models/User.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/reportWebVitals.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/setupTests.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/src/world.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Client/vite.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/JSON Schemas/film01.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/JSON Schemas/film_schema.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/JSON Schemas/review01.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/JSON Schemas/review_schema.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/JSON Schemas/user01.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/JSON Schemas/user_schema.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Design/openapi.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/.swagger-codegen-ignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/.swagger-codegen/VERSION" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/api/openapi.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/components/db.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/components/film.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/components/review.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/components/user.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/controllers/FilmsController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/controllers/ReviewsController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/controllers/UsersController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/database/databaseV1.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/database/databaseV1.db-shm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/database/databaseV1.db-wal" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/json_schemas/film_schema.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/json_schemas/review_schema.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/json_schemas/user_schema.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/service/FilmsService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/service/ReviewsService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/service/UsersService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/utils/constants.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/websockets-api/Server/REST APIs Implementation/utils/writer.js" afterDir="false" />
+    <list default="true" id="5d77b753-3edd-4b4f-a842-3946fbc34809" name="Changes" comment="added Server for websockets-api">
+      <change afterPath="$PROJECT_DIR$/websockets-api/Server/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/websockets-api/Server/.idea/Server.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/websockets-api/Server/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/websockets-api/Server/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/websockets-api/Server/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/websockets-api/Server/controllers/StatusController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/websockets-api/Server/database/databaseV1.db-shm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/websockets-api/Server/database/databaseV1.db-wal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/websockets-api/Server/service/StatusService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/websockets-api/Client/src/API.js" beforeDir="false" afterPath="$PROJECT_DIR$/websockets-api/Client/src/API.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/websockets-api/Client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/websockets-api/Client/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/websockets-api/Client/src/components/Cards.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/Cards.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/websockets-api/Client/src/components/OnlineList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/websockets-api/Client/src/components/OnlineList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/websockets-api/Server/controllers/UsersController.js" beforeDir="false" afterPath="$PROJECT_DIR$/websockets-api/Server/controllers/UsersController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/websockets-api/Server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/websockets-api/Server/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/websockets-api/Server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/websockets-api/Server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/websockets-api/Server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/websockets-api/Server/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,32 +48,40 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2ZjEJmfdibB9MqTwihx6xnyK2BI" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/grzianod/Documents/PoliTO/LM32 - Cybersecurity/Distributed Systems Programming/dsp&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/Users/grzianod/Documents/PoliTO/LM32 - Cybersecurity/Distributed Systems Programming/dsp/rest-apis",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/rest-apis" />
+      <recent name="$PROJECT_DIR$/websockets-api" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -142,6 +93,7 @@
       <workItem from="1702927019631" duration="1223000" />
       <workItem from="1702986274790" duration="457000" />
       <workItem from="1703153514733" duration="499000" />
+      <workItem from="1703240488416" duration="9352000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -215,18 +167,28 @@
       <option name="project" value="LOCAL" />
       <updated>1702986478578</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="added Server for websockets-api">
+      <option name="closed" value="true" />
+      <created>1703241434657</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1703241434657</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <ignored-roots>
       <path value="$PROJECT_DIR$/REST_APIs/lab01-json-rest" />
       <path value="$PROJECT_DIR$/gRPC/lab02-grpc" />
     </ignored-roots>
     <MESSAGE value="initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+    <MESSAGE value="added Server for websockets-api" />
+    <option name="LAST_COMMIT_MESSAGE" value="added Server for websockets-api" />
   </component>
 </project>

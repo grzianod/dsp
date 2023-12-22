@@ -13,8 +13,7 @@ const OnlineList = ({usersList}) => {
           selectedInfo = usersList[i]
         }
       }
-
-      return <Card key={user.userId}  selectedInfo={selectedInfo} id={user.userId} name={user.userName}/>
+      return <Card key={user.userId} selectedInfo={selectedInfo} id={user.userId} name={user.userName}/>
     })
     return(
         <div>

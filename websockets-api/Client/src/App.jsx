@@ -12,7 +12,7 @@ import { Navigation } from './components/Navigation';
 import MessageContext from './messageCtx';
 import API from './API';
 
-const url = 'ws://localhost:5000'
+const url = 'ws://localhost:3002'
 
 function App() {
 
@@ -56,6 +56,7 @@ function Main() {
   const [onlineList, setOnlineList] = useState([]);
   //This state contains the Film Manager resource.
   const [filmManager, setFilmManager] = useState({});
+  const [init, setInit] = useState(false);
 
   // Error messages are managed at context level (like global variables)
   const {handleErrors} = useContext(MessageContext);
@@ -64,19 +65,49 @@ function Main() {
 
   let socket = useRef(null);
 
+  useEffect( () => {
+    setInit(true);
+  }, [])
+
   //Film manager resource retrieval
   useEffect(() => {
-    API.getFilmManager().then(fm => {setFilmManager(fm); sessionStorage.setItem('filmManager', JSON.stringify(fm)); console.log(JSON.parse(sessionStorage.getItem('filmManager')))});
-  },
+
+      API.getFilmManager().then(fm => {
+        setFilmManager(fm);
+        sessionStorage.setItem('filmManager', JSON.stringify(fm));
+        console.log(JSON.parse(sessionStorage.getItem('filmManager')))
+      })
+
+    },
   []);
 
-  //WebSocket management
-  useEffect(() => {
-    
-	//The code for WebSocket management must be included here
-	
-  },
-  []);
+  useEffect( () => {
+    if(init) {
+      const ws = new WebSocket(url);
+      ws.onopen = (event) => {};
+
+      ws.onmessage = (event) => {
+        let data = JSON.parse(event.data);
+        if(data.typeMessage === "login")
+          setOnlineList( (onlineList) => [...onlineList, data]);
+        if(data.typeMessage === "logout"){
+          setOnlineList( (onlineList) => onlineList.filter( (user) => user.userId !== data.userId));
+        }
+        if(data.typeMessage === "update") {
+          setOnlineList( onlineList => onlineList.map( (user) => {
+            if(user.userId === data.userId)
+              return data;
+            return user;
+          }));
+        }
+      };
+
+      ws.onclose = (event) => {
+        handleLogout(filmManager).then(r => {});
+      };
+      setInit(false);
+    }
+  }, [init]);
 
   useEffect(() => {
     const init = async () => {
